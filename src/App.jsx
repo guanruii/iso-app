@@ -11,29 +11,35 @@ import {
 import { motion } from "framer-motion";
 
 // ---------------------------------------------
-// Placeholder domain data (replace with real ISO content later)
+// ISO content placeholder
 // ---------------------------------------------
 const materials = [
   {
     id: "iso27k",
     title: "ISO 27k Information Security",
-    description: "The ISO27k standard is a set of ISO standards for managing the risks affecting or involving both business and personal information. It aims to help protect information assets from harm while enabling their legitimate use."
-  },
+    intro: [
+      "The ISO27k standard is a set of ISO standards for managing the risks affecting or involving both business and personal information. It aims to help protect information assets from harm while enabling their legitimate use.",
+      "The standard adopts the Plan‑Do‑Check‑Act(PDCA) cycle and emphasises continual improvement to align security controls with evolving risks.",
+      "Attached is the ISO27k Handbook, refer to it for detailed clauses and explanations"
+  ],
+    pdf: "public/iso27k.pdf"
+},
 ];
 
 const quizzes = {
   organisational: [
-    { q: "Org‑control question 1", choices: ["A", "B", "C", "D"], answer: 0 },
-    { q: "Org‑control question 2", choices: ["A", "B", "C", "D"], answer: 1 },
+    { q: "Which is not considered acceptable use?", choices: ["Leaking company information","Use licensed software", "Handle personal data per PDPA", "Keep devices up to date "], answer: 0 },
+    { q: "How often are CISO-led threat intelligence meeting?", choices: ["Daily", "Bi-annually", "Annually", "Only after an incident"], answer: 1 },
+    { q: "The primary purpose of a table-top exercise(TTX) is to:", choices: ["Helps understand the impact of various scenarios", "Reveal gaps in plan", "Identify vulnerabilities in system"], answer: 1 },
   ],
   people: [
-    { q: "People‑control question 1", choices: ["A", "B", "C", "D"], answer: 2 },
+    { q: "Which is not a remote working expectation?", choices: ["Maintain contact with supervisor", "Flexible working hours", "Avoid using public Wi-Fi", "Maintain performance standards"], answer: 1 },
   ],
   physical: [
-    { q: "Physical‑control question 1", choices: ["A", "B", "C", "D"], answer: 3 },
+    { q: "Secure media disposal should use:", choices: ["Regular recycling bins", "Directly deleting locally", "Approved third‑party company"], answer: 2 },
   ],
   technological: [
-    { q: "Tech‑control question 1", choices: ["A", "B", "C", "D"], answer: 0 },
+    { q: "Systems protection does not include:", choices: ["Keep systems protected with antivirus", "Utilize vulnerability scanning tools ", "Regularly update security tools", "Avoid multi-factor authentication"], answer: 3 },
   ],
 };
 
@@ -143,18 +149,24 @@ function MaterialsList() {
   return (
     <main className="dashboard">
       {materials.map((m) => (
-        <div key={m.id} className="card">
+        <section key={m.id} className="card">
           <h2 className="card-title">{m.title}</h2>
-          <p className="card-desc">{m.description}</p>
-        </div>
+          {m.intro && m.intro.map((p, i) => (
+            <p key={i} className="material-paragraph">{p}</p>
+          ))}
+
+          {/* PDF embed section */}
+          {m.pdf && (
+          <iframe src={m.pdf} title={m.title + " PDF"} className="pdf-frame"
+          />
+)}
+
+        </section>
       ))}
     </main>
   );
 }
 
-/** ------------------------------------------------------------------
- *  Material page – only rendered if we later add PDFs; safeguard now
- *  ----------------------------------------------------------------*/
 function MaterialPage() {
   return <p className="page-padding">Material not available yet.</p>;
 }
@@ -206,7 +218,7 @@ function ResultPage() {
     <main className="result-page">
       <h1 className="result-title">Your Score</h1>
       <p className="result-score">
-        {score} / {total}
+        Your score is: {score} / {total}
       </p>
       <Link to="/materials" className="link-primary">
         Back to Materials
