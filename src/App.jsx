@@ -1,5 +1,3 @@
-import overview from "/public/controls_overview.png";
-import handbookPdf from "/public/iso27k.pdf";
 import { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -24,7 +22,7 @@ const materials = [
       "The standard adopts the Plan‑Do‑Check‑Act(PDCA) cycle and emphasises continual improvement to align security controls with evolving risks.",
       "Attached is the ISO27k Handbook, refer to it for detailed clauses and explanations"
   ],
-    pdf: "{handbookPdf}"
+    pdf: "/pdf/iso27k.pdf"
 },
 ];
 
@@ -138,7 +136,7 @@ function Home() {
       </div>
       <h3>ISO 27001 groups its safeguards into four controls: </h3>
       <p>Organisational controls, provides the governance framework. People controls, focuses on shaping human behaviour so every worker becomes a dependable line of defence. Physical controls, secures buildings, equipment, and media to prevent unauthorised entry or damage; and Technological controls, automates protection with tools like firewalls, encryption, monitoring, and backups to keep data safe, accurate, available, and quickly recoverable after an incident.</p>
-      <img src="{overview}"></img>
+      <img src="img/controls_overview"></img>
       <p>Select <strong>Learning Materials</strong> or <strong>Quizzes</strong> from the navigation bar to continue learning.</p>
     </main>
   );
